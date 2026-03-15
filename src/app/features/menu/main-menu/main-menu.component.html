@@ -1,0 +1,101 @@
+<div class="main-menu">
+
+  <!-- Art Deco Background decoration -->
+  <div class="deco-left">
+    <div class="deco-fan deco-fan--1"></div>
+    <div class="deco-fan deco-fan--2"></div>
+    <div class="deco-line" *ngFor="let l of [1,2,3,4,5]"></div>
+  </div>
+  <div class="deco-right">
+    <div class="deco-fan deco-fan--1"></div>
+    <div class="deco-fan deco-fan--2"></div>
+    <div class="deco-line" *ngFor="let l of [1,2,3,4,5]"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="menu-header stagger-1">
+    <div class="header-ornament">✦ ◆ ✦</div>
+    <h1 class="game-title">
+      <span class="title-top">The Roaring</span>
+      <span class="title-main gold-glow">BLOCKS</span>
+      <span class="title-sub">Est. 1920 · A Tetris Fantasia</span>
+    </h1>
+    <div class="header-ornament">✦ ◆ ✦</div>
+  </header>
+
+  <!-- Art Deco Divider -->
+  <div class="art-deco-divider stagger-2">
+    <span class="diamond"></span>
+    <span class="diamond"></span>
+    <span class="diamond"></span>
+  </div>
+
+  <!-- Menu Buttons -->
+  <nav class="menu-nav" role="navigation" aria-label="Main menu">
+
+    <button
+      class="menu-btn menu-btn--primary stagger-3"
+      (click)="startSingle()"
+      (mouseenter)="hover()"
+      aria-label="Start single player game"
+    >
+      <span class="menu-btn__icon">🎩</span>
+      <span class="menu-btn__text">Solo Performance</span>
+      <span class="menu-btn__sub">1 Player</span>
+    </button>
+
+    <button
+      class="menu-btn menu-btn--primary stagger-4"
+      (click)="startMulti()"
+      (mouseenter)="hover()"
+      aria-label="Start two player game"
+    >
+      <span class="menu-btn__icon">🎷</span>
+      <span class="menu-btn__text">Duet Swing</span>
+      <span class="menu-btn__sub">2 Players</span>
+    </button>
+
+    <button
+      class="menu-btn menu-btn--secondary stagger-5"
+      (click)="goScoreboard()"
+      (mouseenter)="hover()"
+      aria-label="View scoreboard"
+    >
+      <span class="menu-btn__icon">🏆</span>
+      <span class="menu-btn__text">Hall of Fame</span>
+      <span class="menu-btn__sub">High Scores</span>
+    </button>
+
+    <button
+      class="menu-btn menu-btn--secondary stagger-6"
+      (click)="goSettings()"
+      (mouseenter)="hover()"
+      aria-label="Open settings"
+    >
+      <span class="menu-btn__icon">⚙</span>
+      <span class="menu-btn__text">The Parlour</span>
+      <span class="menu-btn__sub">Settings</span>
+    </button>
+
+  </nav>
+
+  <!-- Footer -->
+  <footer class="menu-footer stagger-7">
+    <p class="footer-text">
+      <span class="diamond-sm">◆</span>
+      Arrow Keys · X/Z Rotate · ↑ Hard Drop · Shift Hold
+      <span class="diamond-sm">◆</span>
+    </p>
+    <p class="footer-credit">Crafted with Jazz & TypeScript</p>
+  </footer>
+
+  <!-- Floating jazz notes decoration -->
+  <div class="jazz-notes" aria-hidden="true">
+    <span class="note note-1">♪</span>
+    <span class="note note-2">♫</span>
+    <span class="note note-3">♩</span>
+    <span class="note note-4">♬</span>
+    <span class="note note-5">♪</span>
+  </div>
+
+</div>

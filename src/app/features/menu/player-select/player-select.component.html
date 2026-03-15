@@ -1,0 +1,93 @@
+<div class="player-select">
+
+  <header class="ps-header stagger-1">
+    <div class="header-ornament">✦ ◆ ✦</div>
+    <h1 class="ps-title">
+      <span class="title-accent font-accent">Choose Your</span>
+      <span class="title-main gold-glow">Character</span>
+    </h1>
+    <div class="header-ornament">✦ ◆ ✦</div>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="startGame()" class="ps-form">
+
+    <!-- Player 1 -->
+    <div class="player-card stagger-2">
+      <div class="player-card__header">
+        <span class="player-number">Player I</span>
+        <span class="player-keys">← → ↓ ↑ · X/Z · Shift</span>
+      </div>
+
+      <input
+        class="name-input"
+        type="text"
+        formControlName="p1Name"
+        placeholder="Enter name..."
+        [maxlength]="MAX_NAME_LENGTH"
+        autocomplete="off"
+        aria-label="Player 1 name"
+      />
+
+      <div class="avatar-grid">
+        <button
+          type="button"
+          *ngFor="let av of avatars"
+          class="avatar-btn"
+          [class.avatar-btn--selected]="isSelectedAvatar(1, av.id)"
+          (click)="selectAvatar(1, av.id)"
+          [attr.aria-label]="av.name"
+          [title]="av.description"
+        >
+          <span class="avatar-emoji">{{ av.emoji }}</span>
+          <span class="avatar-name">{{ av.name }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Player 2 (multiplayer only) -->
+    <div class="player-card stagger-3" *ngIf="mode === 'multi'">
+      <div class="player-card__header">
+        <span class="player-number">Player II</span>
+        <span class="player-keys">A D S W · G/F · R-Shift</span>
+      </div>
+
+      <input
+        class="name-input"
+        type="text"
+        formControlName="p2Name"
+        placeholder="Enter name..."
+        [maxlength]="MAX_NAME_LENGTH"
+        autocomplete="off"
+        aria-label="Player 2 name"
+      />
+
+      <div class="avatar-grid">
+        <button
+          type="button"
+          *ngFor="let av of avatars"
+          class="avatar-btn"
+          [class.avatar-btn--selected]="isSelectedAvatar(2, av.id)"
+          (click)="selectAvatar(2, av.id)"
+          [attr.aria-label]="av.name"
+          [title]="av.description"
+        >
+          <span class="avatar-emoji">{{ av.emoji }}</span>
+          <span class="avatar-name">{{ av.name }}</span>
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- Actions -->
+  <div class="ps-actions stagger-4">
+    <button class="action-btn action-btn--ghost" (click)="goBack()">
+      ‹ Back to Menu
+    </button>
+    <button class="action-btn action-btn--primary" (click)="startGame()" [disabled]="form.invalid">
+      <span>Let the Show Begin</span>
+      <span class="btn-icon">🎷</span>
+    </button>
+  </div>
+
+</div>

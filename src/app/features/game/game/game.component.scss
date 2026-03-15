@@ -1,0 +1,184 @@
+@use '../../../../styles/variables' as *;
+
+.game-wrapper {
+  width: 100vw; height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+
+// ── Single Player Layout ──────────────────────────────────────
+.game-layout--single {
+  display: grid;
+  grid-template-columns: 160px auto 120px;
+  gap: $space-md;
+  align-items: start;
+  height: 100vh;
+  padding: $space-md;
+}
+
+.board-wrapper {
+  display: flex; align-items: center; justify-content: center;
+  height: 100%;
+}
+
+.side-panel-right {
+  display: flex; flex-direction: column; gap: $space-sm;
+  padding-top: $space-md;
+}
+
+.next-piece-section, .held-piece-section {
+  padding: $space-sm $space-md;
+}
+
+.panel-label {
+  font-family: $font-body;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba($color-gold, 0.6);
+  margin-bottom: $space-xs;
+  text-align: center;
+}
+
+.controls-hint {
+  padding: $space-sm $space-md;
+  margin-top: $space-sm;
+}
+
+.hint-line {
+  font-family: $font-body;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba($color-champagne, 0.25);
+  text-transform: uppercase;
+  line-height: 2;
+}
+
+// ── Multi Player Layout ───────────────────────────────────────
+.game-layout--multi {
+  display: flex;
+  align-items: center;
+  gap: $space-lg;
+  height: 100vh;
+  padding: $space-md;
+}
+
+.multi-player-slot {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: $space-sm;
+}
+
+.next-hold-mini {
+  padding: $space-sm;
+  min-width: 80px;
+}
+
+.vs-divider {
+  display: flex; align-items: center; justify-content: center;
+  width: 60px; flex-shrink: 0;
+}
+
+.vs-text {
+  font-family: $font-display;
+  font-size: 28px;
+  color: rgba($color-gold, 0.4);
+  letter-spacing: 0.1em;
+  writing-mode: vertical-rl;
+}
+
+// ── Game Over Overlay ─────────────────────────────────────────
+.gameover-overlay {
+  position: fixed; inset: 0;
+  background: rgba($color-noir, 0.88);
+  display: flex; align-items: center; justify-content: center;
+  z-index: $z-overlay;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.gameover-panel {
+  background: linear-gradient(135deg, rgba($color-noir-soft,0.98), rgba($color-mahogany,0.4));
+  border: 1px solid rgba($color-gold, 0.5);
+  padding: $space-xl $space-xxl;
+  text-align: center;
+  position: relative;
+  animation: slideUp 0.4s ease forwards;
+  min-width: 360px;
+
+  &::before {
+    content: ''; position: absolute; inset: 6px;
+    border: 1px solid rgba($color-gold,0.15); pointer-events: none;
+  }
+}
+
+.gameover-ornament {
+  color: rgba($color-gold, 0.5);
+  letter-spacing: 0.4em;
+  font-size: 11px;
+  margin: $space-sm 0;
+}
+
+.gameover-title {
+  font-family: $font-display;
+  font-size: clamp(32px, 5vw, 52px);
+  color: $color-gold;
+  letter-spacing: 0.06em;
+  margin-bottom: $space-xs;
+
+  background: linear-gradient(135deg, $color-gold-dark, $color-gold, $color-gold-light);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gameover-sub {
+  color: rgba($color-champagne,0.5);
+  font-size: 16px;
+  margin-bottom: $space-xl;
+}
+
+.gameover-scores {
+  display: flex; flex-direction: column; gap: $space-md;
+  margin-bottom: $space-xl;
+}
+
+.gameover-score {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 2px 8px;
+  padding: $space-md;
+  border: 1px solid rgba($color-gold, 0.2);
+  background: rgba($color-noir, 0.5);
+  text-align: left;
+}
+
+.gs-name   { font-family: $font-heading; font-weight: 700; color: $color-champagne; font-size: 16px; }
+.gs-score  { font-family: $font-display; font-size: 22px; color: $color-gold; text-align: right; grid-row: 1; }
+.gs-detail { font-family: $font-body; font-size: 11px; color: rgba($color-champagne,0.4); letter-spacing: 0.1em; grid-column: 1 / -1; }
+
+.gameover-actions {
+  display: flex; gap: $space-md; justify-content: center; margin-bottom: $space-lg;
+}
+
+.go-btn {
+  cursor: pointer; border: none;
+  font-family: $font-body; font-weight: 700; font-size: 13px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  transition: all 0.2s;
+
+  &--primary {
+    background: linear-gradient(135deg, $color-gold-dark, $color-gold, $color-gold-dark);
+    color: $color-noir; padding: 12px 28px;
+    &:hover { filter: brightness(1.15); transform: translateY(-1px); box-shadow: 0 4px 16px rgba($color-gold,0.4); }
+  }
+
+  &--ghost {
+    background: transparent;
+    border: 1px solid rgba($color-champagne, 0.2);
+    color: rgba($color-champagne, 0.5);
+    padding: 12px 28px;
+    &:hover { border-color: rgba($color-gold,0.4); color: $color-gold; }
+  }
+}

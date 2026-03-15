@@ -1,0 +1,51 @@
+<div class="achievement-backdrop" *ngIf="isVisible" aria-live="assertive" role="alert">
+
+  <!-- Radial burst rays -->
+  <div class="burst" [style.--rarity-color]="rarityColor">
+    <div class="burst__ray" *ngFor="let r of [0,1,2,3,4,5,6,7,8,9,10,11]"
+      [style.transform]="'rotate(' + r * 30 + 'deg)'">
+    </div>
+  </div>
+
+  <!-- Achievement card -->
+  <div class="achievement-card" [style.--rarity-color]="rarityColor">
+
+    <div class="card-corner card-corner--tl"></div>
+    <div class="card-corner card-corner--tr"></div>
+    <div class="card-corner card-corner--bl"></div>
+    <div class="card-corner card-corner--br"></div>
+
+    <div class="card-header">
+      <span class="header-text">Achievement Unlocked!</span>
+    </div>
+
+    <div class="card-icon">{{ event.achievement.icon }}</div>
+
+    <div class="card-rarity" [style.color]="rarityColor">
+      ✦ {{ event.achievement.rarity | titlecase }} ✦
+    </div>
+
+    <h2 class="card-title">{{ event.achievement.name }}</h2>
+    <p class="card-desc">{{ event.achievement.description }}</p>
+
+    <div class="card-player">
+      <span class="player-label">Earned by</span>
+      <span class="player-name">{{ event.playerName }}</span>
+    </div>
+
+    <!-- Animated gold bar at bottom -->
+    <div class="card-progress">
+      <div class="card-progress-fill" [style.background]="rarityColor"></div>
+    </div>
+
+  </div>
+
+  <!-- Confetti-style floating diamonds -->
+  <div class="confetti" aria-hidden="true">
+    <span class="confetti-item" *ngFor="let i of [0,1,2,3,4,5,6,7]"
+      [style.--delay]="i * 0.12 + 's'"
+      [style.--x]="(i * 37 % 80 + 10) + '%'"
+      [style.color]="rarityColor">◆</span>
+  </div>
+
+</div>

@@ -1,0 +1,212 @@
+@use '../../../../styles/variables' as *;
+
+// ── Backdrop ──────────────────────────────────────────────────
+.achievement-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-achievement;
+  pointer-events: none;
+}
+
+// ── Burst rays ────────────────────────────────────────────────
+.burst {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease forwards;
+
+  &__ray {
+    position: absolute;
+    width: 3px;
+    height: 45vh;
+    background: linear-gradient(
+      to top,
+      transparent 0%,
+      rgba(var(--rarity-color, #D4AF37), 0.12) 40%,
+      transparent 100%
+    );
+    transform-origin: center bottom;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.5px;
+    animation: burstExpand 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+}
+
+@keyframes burstExpand {
+  from { opacity: 0; transform-origin: center bottom; }
+  to   { opacity: 1; }
+}
+
+// ── Achievement Card ──────────────────────────────────────────
+.achievement-card {
+  position: relative;
+  width: min(380px, 90vw);
+  background: linear-gradient(
+    155deg,
+    rgba($color-noir-soft, 0.98) 0%,
+    rgba($color-mahogany, 0.5)   40%,
+    rgba($color-noir-soft, 0.98) 100%
+  );
+  border: 2px solid var(--rarity-color, #{$color-gold});
+  padding: $space-xl $space-xl $space-md;
+  text-align: center;
+  box-shadow:
+    0 0 40px rgba(0, 0, 0, 0.8),
+    0 0 60px rgba(var(--rarity-color, #{$color-gold}), 0.25),
+    0 0 120px rgba(var(--rarity-color, #{$color-gold}), 0.1);
+
+  // The magic zoom-out from centre
+  animation: achievementZoom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+// ── Corner Ornaments ──────────────────────────────────────────
+.card-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    background: var(--rarity-color, #{$color-gold});
+  }
+  &::before { width: 100%; height: 2px; top: 0; left: 0; }
+  &::after  { width: 2px; height: 100%; top: 0; left: 0; }
+
+  &--tl { top: 6px;  left: 6px; }
+  &--tr { top: 6px;  right: 6px; transform: scaleX(-1); }
+  &--bl { bottom: 6px; left: 6px; transform: scaleY(-1); }
+  &--br { bottom: 6px; right: 6px; transform: scale(-1); }
+}
+
+// ── Card Content ──────────────────────────────────────────────
+.card-header {
+  margin-bottom: $space-md;
+}
+
+.header-text {
+  font-family: $font-body;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba($color-champagne, 0.5);
+  background: rgba($color-noir, 0.5);
+  padding: 4px 12px;
+  display: inline-block;
+  border: 1px solid rgba($color-champagne, 0.1);
+}
+
+.card-icon {
+  font-size: 64px;
+  line-height: 1;
+  margin: $space-sm 0;
+  display: block;
+  animation: achievementZoom 0.5s 0.1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+}
+
+.card-rarity {
+  font-family: $font-body;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: $space-sm;
+}
+
+.card-title {
+  font-family: $font-display;
+  font-size: clamp(20px, 4vw, 28px);
+  letter-spacing: 0.04em;
+  color: $color-champagne;
+  margin-bottom: $space-sm;
+  line-height: 1.2;
+
+  background: linear-gradient(135deg, $color-champagne, var(--rarity-color, #{$color-gold}), $color-champagne);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-desc {
+  font-family: $font-accent;
+  font-size: 15px;
+  color: rgba($color-champagne, 0.65);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: $space-lg;
+  padding: 0 $space-md;
+}
+
+.card-player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-sm;
+  padding-top: $space-sm;
+  border-top: 1px solid rgba($color-champagne, 0.1);
+  margin-bottom: $space-md;
+}
+
+.player-label {
+  font-family: $font-body;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba($color-champagne, 0.3);
+}
+
+.player-name {
+  font-family: $font-heading;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--rarity-color, #{$color-gold});
+}
+
+// ── Progress bar (auto-empties = countdown visual) ────────────
+.card-progress {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba($color-champagne, 0.08);
+  overflow: hidden;
+}
+
+.card-progress-fill {
+  height: 100%;
+  width: 100%;
+  animation: progressDrain 3.8s linear forwards;
+  transform-origin: left;
+}
+
+@keyframes progressDrain {
+  from { width: 100%; }
+  to   { width: 0%; }
+}
+
+// ── Confetti diamonds ─────────────────────────────────────────
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.confetti-item {
+  position: absolute;
+  top: 45%;
+  left: var(--x, 50%);
+  font-size: clamp(10px, 1.5vw, 16px);
+  opacity: 0;
+  animation: confettiFly 1.5s var(--delay, 0s) ease-out forwards;
+}
+
+@keyframes confettiFly {
+  0%   { opacity: 0;   transform: translateY(0)   rotate(0deg)   scale(0); }
+  20%  { opacity: 1;   transform: translateY(-20px) rotate(45deg) scale(1); }
+  100% { opacity: 0;   transform: translateY(-120px) rotate(360deg) scale(0.5); }
+}

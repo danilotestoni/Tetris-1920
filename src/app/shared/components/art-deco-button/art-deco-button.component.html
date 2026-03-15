@@ -1,0 +1,13 @@
+<button
+  class="btn"
+  [class]="'btn btn--' + variant + ' btn--' + size"
+  [class.btn--full]="fullWidth"
+  [class.btn--disabled]="disabled"
+  [disabled]="disabled"
+  (click)="onClick()"
+>
+  <span class="btn__inner">
+    <ng-content></ng-content>
+  </span>
+  <span class="btn__shimmer"></span>
+</button>

@@ -1,0 +1,168 @@
+// ═══════════════════════════════════════════════════════════════
+//  TETRIS 1920 — GLOBAL STYLES
+//  The Roaring Blocks — All that jazz (and SCSS)
+// ═══════════════════════════════════════════════════════════════
+
+@import 'variables';
+@import 'animations';
+
+// ── CSS Custom Properties ────────────────────────────────────────
+:root {
+  --color-gold:       #{$color-gold};
+  --color-gold-light: #{$color-gold-light};
+  --color-champagne:  #{$color-champagne};
+  --color-ivory:      #{$color-ivory};
+  --color-noir:       #{$color-noir};
+  --color-noir-mid:   #{$color-noir-mid};
+  --color-crimson:    #{$color-crimson};
+  --color-teal:       #{$color-teal};
+  --font-display:     #{$font-display};
+  --font-heading:     #{$font-heading};
+  --font-body:        #{$font-body};
+}
+
+// ── Reset & Base ─────────────────────────────────────────────────
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: $font-body;
+  background-color: $color-noir;
+  color: $color-champagne;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: default;
+  user-select: none;
+}
+
+// ── Custom Scrollbar ─────────────────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: $color-noir-mid;
+}
+::-webkit-scrollbar-thumb {
+  background: $color-gold-dark;
+  border-radius: 3px;
+}
+
+// ── Art Deco Background Pattern ──────────────────────────────────
+.art-deco-bg {
+  background-color: $color-noir;
+  background-image:
+    linear-gradient(45deg, rgba($color-gold, 0.03) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba($color-gold, 0.03) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba($color-gold, 0.03) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba($color-gold, 0.03) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+// ── Scanlines overlay ────────────────────────────────────────────
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.07) 2px,
+    rgba(0, 0, 0, 0.07) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanlines 0.1s linear infinite;
+}
+
+// ── Typography Helpers ───────────────────────────────────────────
+.text-gold       { color: $color-gold; }
+.text-champagne  { color: $color-champagne; }
+.text-crimson    { color: $color-crimson; }
+
+.font-display    { font-family: $font-display; }
+.font-heading    { font-family: $font-heading; }
+.font-accent     { font-family: $font-accent; }
+
+.gold-glow {
+  color: $color-gold;
+  text-shadow: 0 0 10px rgba($color-gold, 0.5), 0 1px 2px rgba(0,0,0,0.8);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+// ── Art Deco Divider ─────────────────────────────────────────────
+.art-deco-divider {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  margin: $space-md 0;
+
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $color-gold, transparent);
+  }
+
+  .diamond {
+    width: 8px;
+    height: 8px;
+    background: $color-gold;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+}
+
+// ── Panel Base ───────────────────────────────────────────────────
+.panel {
+  background: linear-gradient(
+    135deg,
+    rgba($color-noir-soft, 0.95) 0%,
+    rgba($color-mahogany, 0.3) 50%,
+    rgba($color-noir-soft, 0.95) 100%
+  );
+  border: 1px solid rgba($color-gold, 0.5);
+  position: relative;
+  padding: $space-lg;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba($color-gold, 0.2);
+    pointer-events: none;
+  }
+}
+
+// ── Fade In Stagger ──────────────────────────────────────────────
+@for $i from 1 through 10 {
+  .stagger-#{$i} {
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: #{$i * 0.1}s;
+    opacity: 0;
+  }
+}
+
+// ── Utility classes ──────────────────────────────────────────────
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-col    { flex-direction: column; }
+.full-size   { width: 100%; height: 100%; }
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}

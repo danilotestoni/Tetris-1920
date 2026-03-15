@@ -1,0 +1,97 @@
+<div class="scoreboard">
+
+  <header class="sb-header stagger-1">
+    <h1 class="sb-title gold-glow">Hall of Fame</h1>
+    <p class="sb-subtitle font-accent">The legends of the Roaring Blocks</p>
+  </header>
+
+  <!-- Tabs -->
+  <div class="sb-tabs stagger-2">
+    <button class="tab-btn" [class.tab-btn--active]="activeTab === 'scores'"
+      (click)="setTab('scores')">🏆 High Scores</button>
+    <button class="tab-btn" [class.tab-btn--active]="activeTab === 'achievements'"
+      (click)="setTab('achievements')">🎖 Achievements</button>
+  </div>
+
+  <!-- Scores Table -->
+  <div class="sb-content stagger-3" *ngIf="activeTab === 'scores'">
+    <div class="scores-empty" *ngIf="scores.length === 0">
+      <p class="empty-icon">🎭</p>
+      <p class="empty-text">No scores yet, old sport.</p>
+      <p class="empty-hint">Go play a game and make some history!</p>
+    </div>
+
+    <table class="scores-table" *ngIf="scores.length > 0" role="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Score</th>
+          <th>Level</th>
+          <th>Lines</th>
+          <th>Time</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of scores; let i = index"
+          class="score-row"
+          [class.score-row--gold]="i === 0"
+          [class.score-row--silver]="i === 1"
+          [class.score-row--bronze]="i === 2"
+        >
+          <td class="rank-cell">
+            <span *ngIf="i === 0">🥇</span>
+            <span *ngIf="i === 1">🥈</span>
+            <span *ngIf="i === 2">🥉</span>
+            <span *ngIf="i >= 3">{{ i + 1 }}</span>
+          </td>
+          <td class="name-cell">{{ s.playerName }}</td>
+          <td class="score-cell">{{ s.score | number }}</td>
+          <td class="level-cell">{{ s.level }}</td>
+          <td class="lines-cell">{{ s.lines }}</td>
+          <td class="time-cell">{{ formatDuration(s.duration) }}</td>
+          <td class="date-cell">{{ formatDate(s.date) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sb-table-actions" *ngIf="scores.length > 0">
+      <button class="clear-btn" (click)="clearScores()">🗑 Clear All Scores</button>
+    </div>
+  </div>
+
+  <!-- Achievements -->
+  <div class="sb-content stagger-3" *ngIf="activeTab === 'achievements'">
+    <div class="achievements-empty" *ngIf="allAchievements.length === 0">
+      <p class="empty-icon">🎖</p>
+      <p class="empty-text">No achievements unlocked yet.</p>
+    </div>
+
+    <div class="achievements-grid">
+      <div *ngFor="let item of allAchievements"
+        class="achievement-card"
+        [class.achievement-card--unlocked]="item.players.length > 0"
+        [attr.data-rarity]="item.achievement.rarity"
+      >
+        <div class="achievement-icon">{{ item.achievement.icon }}</div>
+        <div class="achievement-info">
+          <div class="achievement-name">{{ item.achievement.name }}</div>
+          <div class="achievement-desc">{{ item.achievement.description }}</div>
+          <div class="achievement-players" *ngIf="item.players.length > 0">
+            🏅 {{ item.players.join(', ') }}
+          </div>
+        </div>
+        <div class="achievement-rarity" [attr.data-rarity]="item.achievement.rarity">
+          {{ item.achievement.rarity | titlecase }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <div class="sb-actions stagger-4">
+    <button class="back-btn" (click)="goBack()">‹ Back to Menu</button>
+  </div>
+
+</div>

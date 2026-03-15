@@ -1,0 +1,179 @@
+@use '../../../../styles/variables' as *;
+
+.player-select {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-xl;
+  padding: $space-xl;
+  background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba($color-mahogany, 0.35) 0%, transparent 70%);
+}
+
+// ── Header ────────────────────────────────────────────────────
+.ps-header { text-align: center; }
+.header-ornament {
+  font-family: $font-body;
+  color: rgba($color-gold, 0.5);
+  letter-spacing: 0.4em;
+  font-size: 11px;
+  margin: 4px 0;
+}
+.ps-title {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  .title-accent { font-size: 18px; color: rgba($color-champagne,0.6); }
+  .title-main   { font-family: $font-display; font-size: clamp(28px,5vw,48px); color: $color-gold; letter-spacing: 0.06em; }
+}
+
+// ── Form Layout ───────────────────────────────────────────────
+.ps-form {
+  display: flex;
+  gap: $space-xl;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+// ── Player Card ───────────────────────────────────────────────
+.player-card {
+  width: min(320px, 90vw);
+  background: linear-gradient(135deg, rgba($color-noir-soft,0.95), rgba($color-mahogany,0.2));
+  border: 1px solid rgba($color-gold, 0.4);
+  padding: $space-lg;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba($color-gold, 0.12);
+    pointer-events: none;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: $space-md;
+    padding-bottom: $space-sm;
+    border-bottom: 1px solid rgba($color-gold, 0.2);
+  }
+}
+
+.player-number {
+  font-family: $font-display;
+  font-size: 18px;
+  color: $color-gold;
+  letter-spacing: 0.08em;
+}
+
+.player-keys {
+  font-family: $font-body;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba($color-champagne, 0.3);
+  text-transform: uppercase;
+}
+
+// ── Name Input ────────────────────────────────────────────────
+.name-input {
+  width: 100%;
+  background: rgba($color-noir, 0.8);
+  border: 1px solid rgba($color-gold, 0.3);
+  color: $color-champagne;
+  font-family: $font-heading;
+  font-size: 16px;
+  padding: 10px 14px;
+  margin-bottom: $space-md;
+  letter-spacing: 0.05em;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus { border-color: $color-gold; box-shadow: 0 0 12px rgba($color-gold, 0.2); }
+  &::placeholder { color: rgba($color-champagne, 0.2); font-style: italic; }
+}
+
+// ── Avatar Grid ───────────────────────────────────────────────
+.avatar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-sm;
+}
+
+.avatar-btn {
+  background: rgba($color-noir, 0.6);
+  border: 1px solid rgba($color-gold, 0.2);
+  color: $color-champagne;
+  padding: $space-sm;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: rgba($color-gold, 0.6);
+    background: rgba($color-mahogany, 0.4);
+  }
+
+  &--selected {
+    border-color: $color-gold;
+    background: rgba($color-gold, 0.1);
+    box-shadow: 0 0 12px rgba($color-gold, 0.25);
+  }
+}
+
+.avatar-emoji { font-size: 28px; line-height: 1; }
+.avatar-name {
+  font-family: $font-body;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba($color-champagne, 0.7);
+  text-align: center;
+}
+
+// ── Actions ───────────────────────────────────────────────────
+.ps-actions {
+  display: flex;
+  gap: $space-lg;
+  align-items: center;
+}
+
+.action-btn {
+  cursor: pointer;
+  border: none;
+  font-family: $font-body;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+
+  &--primary {
+    background: linear-gradient(135deg, $color-gold-dark, $color-gold, $color-gold-dark);
+    color: $color-noir;
+    padding: 14px 36px;
+    font-size: 13px;
+    display: flex; align-items: center; gap: $space-sm;
+
+    &:hover:not([disabled]) {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba($color-gold, 0.4);
+    }
+
+    &[disabled] { opacity: 0.4; cursor: not-allowed; }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: rgba($color-champagne, 0.5);
+    padding: 14px 0;
+    font-size: 12px;
+
+    &:hover { color: $color-gold; }
+  }
+}
+.btn-icon { font-size: 18px; }

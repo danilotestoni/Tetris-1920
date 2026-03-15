@@ -1,0 +1,145 @@
+@use '../../../../styles/variables' as *;
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  font-family: $font-body;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all $transition-med;
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+  }
+
+  &__shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255,255,255,0.15) 50%,
+      transparent 60%
+    );
+    background-size: 200% 100%;
+    background-position: 200% center;
+    transition: background-position 0.5s ease;
+    z-index: 1;
+  }
+
+  &:hover .btn__shimmer {
+    background-position: -200% center;
+  }
+
+  // ── Sizes ──────────────────────────────────────────────────
+  &--sm {
+    padding: 6px 16px;
+    font-size: 11px;
+  }
+
+  &--md {
+    padding: 10px 28px;
+    font-size: 13px;
+  }
+
+  &--lg {
+    padding: 14px 40px;
+    font-size: 16px;
+  }
+
+  &--full { width: 100%; }
+
+  // ── Variants ───────────────────────────────────────────────
+  &--primary {
+    background: linear-gradient(135deg, $color-gold-dark 0%, $color-gold 50%, $color-gold-dark 100%);
+    color: $color-noir;
+    box-shadow: 0 2px 0 darken($color-gold-dark, 20%),
+                0 4px 12px rgba($color-gold, 0.3);
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      background: $color-noir;
+    }
+
+    // Corner accents
+    &::before {
+      top: 2px; left: 2px; right: 2px; bottom: 2px;
+      border: 1px solid rgba($color-noir, 0.15);
+      pointer-events: none;
+    }
+
+    &:hover:not(.btn--disabled) {
+      background: linear-gradient(135deg, $color-gold 0%, $color-gold-light 50%, $color-gold 100%);
+      box-shadow: 0 2px 0 $color-gold-dark,
+                  0 6px 20px rgba($color-gold, 0.5);
+      transform: translateY(-1px);
+    }
+
+    &:active:not(.btn--disabled) {
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 $color-gold-dark;
+    }
+  }
+
+  &--secondary {
+    background: transparent;
+    color: $color-gold;
+    border: 1px solid $color-gold;
+    box-shadow: inset 0 0 0 1px rgba($color-gold, 0.2);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border: 1px solid rgba($color-gold, 0.2);
+      pointer-events: none;
+    }
+
+    &:hover:not(.btn--disabled) {
+      background: rgba($color-gold, 0.1);
+      box-shadow: 0 0 16px rgba($color-gold, 0.3),
+                  inset 0 0 0 1px $color-gold;
+      color: $color-gold-light;
+    }
+  }
+
+  &--danger {
+    background: linear-gradient(135deg, $color-crimson 0%, #A00 50%, $color-crimson 100%);
+    color: $color-champagne;
+    box-shadow: 0 2px 0 #500, 0 4px 12px rgba($color-crimson, 0.4);
+
+    &:hover:not(.btn--disabled) {
+      filter: brightness(1.2);
+      transform: translateY(-1px);
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: rgba($color-champagne, 0.6);
+    border: none;
+    letter-spacing: 0.1em;
+
+    &:hover:not(.btn--disabled) {
+      color: $color-gold;
+      text-shadow: 0 0 8px rgba($color-gold, 0.5);
+    }
+  }
+
+  &--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}

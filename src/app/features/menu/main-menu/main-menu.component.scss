@@ -1,0 +1,282 @@
+@use '../../../../styles/variables' as *;
+
+.main-menu {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba($color-mahogany, 0.4) 0%, transparent 70%),
+    linear-gradient(180deg, $color-noir 0%, $color-noir-mid 50%, $color-noir 100%);
+}
+
+// ── Art Deco Side Decorations ─────────────────────────────────
+.deco-left, .deco-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.deco-left  { left: 0; }
+.deco-right { right: 0; transform: scaleX(-1); }
+
+.deco-fan {
+  width: 50px;
+  height: 50px;
+  border-top: 2px solid $color-gold;
+  border-right: 2px solid $color-gold;
+  border-radius: 0 50% 0 0;
+
+  &--1 { transform: rotate(-45deg); }
+  &--2 { transform: rotate(45deg); width: 35px; height: 35px; opacity: 0.6; }
+}
+
+.deco-line {
+  width: 2px;
+  height: 30px;
+  background: linear-gradient(180deg, transparent, $color-gold, transparent);
+
+  &:nth-child(odd) { height: 20px; opacity: 0.5; }
+}
+
+// ── Header ────────────────────────────────────────────────────
+.menu-header {
+  text-align: center;
+  margin-bottom: $space-lg;
+}
+
+.header-ornament {
+  font-family: $font-body;
+  color: rgba($color-gold, 0.6);
+  letter-spacing: 0.4em;
+  font-size: 12px;
+  margin-bottom: $space-sm;
+}
+
+.game-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: $space-sm 0;
+}
+
+.title-top {
+  font-family: $font-accent;
+  font-size: clamp(16px, 3vw, 22px);
+  color: $color-champagne;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.title-main {
+  font-family: $font-display;
+  font-size: clamp(42px, 8vw, 80px);
+  font-weight: 900;
+  color: $color-gold;
+  letter-spacing: 0.06em;
+  animation: titleEntrance 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+             glowPulse 3s ease-in-out 1.2s infinite;
+  line-height: 1;
+
+  background: linear-gradient(
+    135deg,
+    $color-gold-dark 0%,
+    $color-gold 30%,
+    $color-gold-light 50%,
+    $color-gold 70%,
+    $color-gold-dark 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
+  animation: titleEntrance 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+             shimmer 4s linear 1.2s infinite;
+}
+
+.title-sub {
+  font-family: $font-body;
+  font-size: clamp(10px, 1.5vw, 14px);
+  color: rgba($color-champagne, 0.5);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+// ── Art Deco Divider (override) ───────────────────────────────
+.art-deco-divider {
+  gap: 8px;
+  margin: $space-md 0 $space-xl;
+
+  .diamond {
+    width: 6px;
+    height: 6px;
+    background: $color-gold;
+    transform: rotate(45deg);
+  }
+}
+
+// ── Navigation Buttons ────────────────────────────────────────
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  width: min(380px, 90vw);
+}
+
+.menu-btn {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: $space-md;
+  padding: 14px 24px;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-med;
+  overflow: hidden;
+  text-align: left;
+
+  &::after {
+    content: '›';
+    grid-column: 3;
+    color: $color-gold;
+    font-size: 20px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all $transition-med;
+  }
+
+  &:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &--primary {
+    background: linear-gradient(
+      90deg,
+      rgba($color-mahogany, 0.8) 0%,
+      rgba($color-mahogany, 0.4) 100%
+    );
+    border: 1px solid rgba($color-gold, 0.5);
+    color: $color-champagne;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba($color-gold, 0.06), transparent);
+      opacity: 0;
+      transition: opacity $transition-med;
+    }
+
+    &:hover {
+      border-color: $color-gold;
+      transform: translateX(4px);
+      box-shadow: -4px 0 0 $color-gold, 0 4px 20px rgba($color-gold, 0.2);
+
+      &::before { opacity: 1; }
+    }
+  }
+
+  &--secondary {
+    background: transparent;
+    border: 1px solid rgba($color-gold, 0.25);
+    color: rgba($color-champagne, 0.7);
+
+    &:hover {
+      border-color: rgba($color-gold, 0.6);
+      color: $color-champagne;
+      transform: translateX(4px);
+    }
+  }
+
+  &__icon {
+    font-size: 22px;
+    text-align: center;
+    line-height: 1;
+  }
+
+  &__text {
+    display: block;
+    font-family: $font-heading;
+    font-size: clamp(14px, 2vw, 18px);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+  }
+
+  &__sub {
+    display: block;
+    font-family: $font-body;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba($color-gold, 0.7);
+    margin-top: 2px;
+  }
+}
+
+// ── Footer ─────────────────────────────────────────────────────
+.menu-footer {
+  position: absolute;
+  bottom: $space-xl;
+  text-align: center;
+}
+
+.footer-text {
+  font-family: $font-body;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba($color-champagne, 0.35);
+  text-transform: uppercase;
+}
+
+.footer-credit {
+  font-family: $font-accent;
+  font-size: 12px;
+  color: rgba($color-gold, 0.3);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.diamond-sm {
+  color: $color-gold;
+  margin: 0 $space-sm;
+  opacity: 0.5;
+}
+
+// ── Floating Jazz Notes ──────────────────────────────────────
+.jazz-notes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.note {
+  position: absolute;
+  color: rgba($color-gold, 0.2);
+  font-size: 20px;
+  animation: floatUp linear infinite;
+
+  &-1 { left: 15%;  bottom: -30px; animation-duration: 8s;  animation-delay: 0s;   font-size: 16px; }
+  &-2 { left: 30%;  bottom: -30px; animation-duration: 11s; animation-delay: 2s;   font-size: 24px; }
+  &-3 { left: 60%;  bottom: -30px; animation-duration: 9s;  animation-delay: 4s;   font-size: 14px; }
+  &-4 { left: 75%;  bottom: -30px; animation-duration: 13s; animation-delay: 1s;   font-size: 20px; }
+  &-5 { left: 88%;  bottom: -30px; animation-duration: 7s;  animation-delay: 5.5s; font-size: 18px; }
+}

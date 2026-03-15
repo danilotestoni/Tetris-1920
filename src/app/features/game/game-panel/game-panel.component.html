@@ -1,0 +1,47 @@
+<aside class="game-panel" [class.game-panel--right]="side === 'right'">
+
+  <!-- Player name -->
+  <div class="panel-player">
+    <div class="player-ornament">◆</div>
+    <div class="player-name">{{ playerState.playerName }}</div>
+    <div class="player-ornament">◆</div>
+  </div>
+
+  <!-- Score -->
+  <div class="stat-block stat-block--score">
+    <div class="stat-label">Score</div>
+    <div class="stat-value stat-value--score">
+      {{ playerState.score | number }}
+    </div>
+  </div>
+
+  <div class="panel-separator"></div>
+
+  <!-- Level -->
+  <div class="stat-block">
+    <div class="stat-label">Level</div>
+    <div class="stat-value stat-value--level">{{ playerState.level }}</div>
+    <div class="level-bar">
+      <div class="level-fill" [style.width.%]="(playerState.lines % 10) * 10"></div>
+    </div>
+  </div>
+
+  <!-- Lines -->
+  <div class="stat-block">
+    <div class="stat-label">Lines</div>
+    <div class="stat-value">{{ playerState.lines }}</div>
+  </div>
+
+  <!-- Combo -->
+  <div class="stat-block stat-block--combo" *ngIf="playerState.combo > 1">
+    <div class="stat-label">Combo</div>
+    <div class="stat-value stat-value--combo">× {{ playerState.combo }}</div>
+  </div>
+
+  <!-- Time (live) -->
+  <div class="stat-block">
+    <div class="stat-label">Time</div>
+    <div class="stat-value stat-value--time">{{ formatTime(playerState.elapsedTime) }}</div>
+  </div>
+
+</aside>

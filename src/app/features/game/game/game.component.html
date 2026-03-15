@@ -1,0 +1,103 @@
+<div class="game-wrapper" *ngIf="gameState$ | async as state">
+
+  <!-- Single Player layout -->
+  <div class="game-layout game-layout--single" *ngIf="state.mode === 'single'">
+
+    <!-- Left Panel -->
+    <app-game-panel
+      *ngIf="state.players[0] as p"
+      [playerState]="p"
+      [side]="'left'"
+      class="panel-left"
+    ></app-game-panel>
+
+    <!-- Board -->
+    <div class="board-wrapper">
+      <app-game-board
+        *ngIf="state.players[0] as p"
+        [playerState]="p"
+        [showGhost]="true"
+        [showGrid]="true"
+      ></app-game-board>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="side-panel-right">
+      <div class="next-piece-section panel" *ngIf="state.players[0] as p">
+        <div class="panel-label">Next</div>
+        <app-next-piece [piece]="p.nextPiece"></app-next-piece>
+      </div>
+      <div class="held-piece-section panel" *ngIf="state.players[0] as p">
+        <div class="panel-label">Hold · Shift</div>
+        <app-next-piece [piece]="p.heldPiece" [dimmed]="!p.canHold"></app-next-piece>
+      </div>
+      <div class="controls-hint panel">
+        <div class="hint-line">← → Move</div>
+        <div class="hint-line">↓ Soft Drop</div>
+        <div class="hint-line">↑ Hard Drop</div>
+        <div class="hint-line">X/Z Rotate</div>
+        <div class="hint-line">Esc Pause</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two Player layout -->
+  <div class="game-layout game-layout--multi" *ngIf="state.mode === 'multi'">
+
+    <ng-container *ngFor="let p of state.players; let i = index">
+      <div class="multi-player-slot">
+        <app-game-panel [playerState]="p" [side]="i === 0 ? 'left' : 'right'"></app-game-panel>
+        <div class="board-wrapper">
+          <app-game-board [playerState]="p" [showGhost]="true" [showGrid]="true"></app-game-board>
+        </div>
+        <div class="next-hold-mini panel">
+          <div class="panel-label">Next</div>
+          <app-next-piece [piece]="p.nextPiece"></app-next-piece>
+          <div class="panel-label" style="margin-top:8px">Hold</div>
+          <app-next-piece [piece]="p.heldPiece" [dimmed]="!p.canHold"></app-next-piece>
+        </div>
+      </div>
+      <div class="vs-divider" *ngIf="i === 0">
+        <span class="vs-text">VS</span>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Overlays -->
+  <app-pause-overlay
+    *ngIf="isPaused(state)"
+    (resume)="onResume()"
+    (restart)="onRestart()"
+    (menu)="onGoMenu()"
+  ></app-pause-overlay>
+
+  <!-- Game Over Overlay -->
+  <div class="gameover-overlay" *ngIf="isGameOver(state)">
+    <div class="gameover-panel">
+      <div class="gameover-ornament">✦ ◆ ✦</div>
+      <h2 class="gameover-title">Game Over</h2>
+      <p class="gameover-sub font-accent">The curtain falls, old sport...</p>
+
+      <div class="gameover-scores">
+        <div class="gameover-score" *ngFor="let p of state.players">
+          <span class="gs-name">{{ p.playerName }}</span>
+          <span class="gs-score">{{ p.score | number }}</span>
+          <span class="gs-detail">Lvl {{ p.level }} · {{ p.lines }} lines</span>
+        </div>
+      </div>
+
+      <div class="gameover-actions">
+        <button class="go-btn go-btn--primary" (click)="onRestart()">🎷 Play Again</button>
+        <button class="go-btn go-btn--ghost"   (click)="onGoMenu()">‹ Main Menu</button>
+      </div>
+      <div class="gameover-ornament">✦ ◆ ✦</div>
+    </div>
+  </div>
+
+  <!-- Achievement Overlay -->
+  <app-achievement-overlay
+    *ngIf="pendingAchievement"
+    [event]="pendingAchievement"
+  ></app-achievement-overlay>
+
+</div>

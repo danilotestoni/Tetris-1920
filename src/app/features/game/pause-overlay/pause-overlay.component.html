@@ -1,0 +1,36 @@
+<div class="pause-overlay" role="dialog" aria-label="Game paused">
+
+  <div class="pause-panel">
+
+    <div class="pause-ornament">✦ ◆ ✦</div>
+    <h2 class="pause-title gold-glow">Intermission</h2>
+    <p class="pause-sub font-accent">The band takes five...</p>
+
+    <div class="art-deco-divider">
+      <span class="diamond"></span>
+    </div>
+
+    <nav class="pause-nav">
+      <button class="pause-btn pause-btn--primary" (click)="resume.emit()">
+        ▶ Resume Performance
+      </button>
+      <button class="pause-btn pause-btn--secondary" (click)="restart.emit()">
+        ↺ Start Over
+      </button>
+      <button class="pause-btn pause-btn--ghost" (click)="menu.emit()">
+        ‹ Exit to Menu
+      </button>
+    </nav>
+
+    <div class="pause-hint">Press <kbd>Esc</kbd> to resume</div>
+
+    <div class="pause-ornament">✦ ◆ ✦</div>
+
+    <!-- Corner ornaments -->
+    <div class="panel-corner panel-corner--tl"></div>
+    <div class="panel-corner panel-corner--tr"></div>
+    <div class="panel-corner panel-corner--bl"></div>
+    <div class="panel-corner panel-corner--br"></div>
+  </div>
+
+</div>

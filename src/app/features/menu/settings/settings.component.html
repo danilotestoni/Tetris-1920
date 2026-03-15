@@ -1,0 +1,118 @@
+<div class="settings-page">
+
+  <header class="settings-header stagger-1">
+    <h1 class="settings-title gold-glow">The Parlour</h1>
+    <p class="settings-subtitle font-accent">Fine-tune your experience, darling</p>
+  </header>
+
+  <form [formGroup]="form" class="settings-form">
+
+    <!-- Volume Section -->
+    <section class="settings-section stagger-2">
+      <h2 class="section-title">
+        <span class="diamond">◆</span> Orchestra Pit
+      </h2>
+
+      <div class="slider-row">
+        <label class="slider-label">
+          <span class="label-icon">🎵</span>
+          <span class="label-text">Music Volume</span>
+          <span class="label-value">{{ form.get('musicVolume')?.value }}%</span>
+        </label>
+        <div class="slider-track">
+          <input
+            type="range" min="0" max="100" step="5"
+            formControlName="musicVolume"
+            class="deco-slider"
+            aria-label="Music volume"
+          />
+          <div class="slider-fill" [style.width.%]="form.get('musicVolume')?.value"></div>
+        </div>
+      </div>
+
+      <div class="slider-row">
+        <label class="slider-label">
+          <span class="label-icon">🔊</span>
+          <span class="label-text">Sound Effects</span>
+          <span class="label-value">{{ form.get('soundVolume')?.value }}%</span>
+        </label>
+        <div class="slider-track">
+          <input
+            type="range" min="0" max="100" step="5"
+            formControlName="soundVolume"
+            class="deco-slider"
+            aria-label="Sound effects volume"
+          />
+          <div class="slider-fill" [style.width.%]="form.get('soundVolume')?.value"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Difficulty Section -->
+    <section class="settings-section stagger-3">
+      <h2 class="section-title">
+        <span class="diamond">◆</span> Difficulty
+      </h2>
+
+      <div class="difficulty-grid">
+        <button
+          type="button"
+          *ngFor="let d of difficulties"
+          class="diff-btn"
+          [class.diff-btn--selected]="form.get('difficulty')?.value === d"
+          (click)="setDifficulty(d)"
+        >
+          {{ difficultyLabels[d] }}
+        </button>
+      </div>
+    </section>
+
+    <section class="settings-section">
+      <h2 class="section-title">
+        <span class="diamond">◆</span> Music Selection
+      </h2>
+      <div class="difficulty-grid">
+        <button
+          type="button"
+          *ngFor="let t of tracks"
+          class="diff-btn"
+          [class.diff-btn--selected]="form.get('musicTrack')?.value === t.id"
+          (click)="setTrack(t.id)"
+        >
+          {{ t.label }}
+        </button>
+      </div>
+    </section>
+
+    <!-- Display Section -->
+    <section class="settings-section stagger-4">
+      <h2 class="section-title">
+        <span class="diamond">◆</span> Display
+      </h2>
+
+      <label class="toggle-row">
+        <span class="toggle-label">Ghost Piece (landing preview)</span>
+        <div class="toggle-wrap">
+          <input type="checkbox" formControlName="showGhost" class="toggle-input" id="ghostToggle" />
+          <label class="toggle-switch" for="ghostToggle"></label>
+        </div>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-label">Show Grid Lines</span>
+        <div class="toggle-wrap">
+          <input type="checkbox" formControlName="showGrid" class="toggle-input" id="gridToggle" />
+          <label class="toggle-switch" for="gridToggle"></label>
+        </div>
+      </label>
+    </section>
+
+  </form>
+
+  <!-- Actions -->
+  <div class="settings-actions stagger-5">
+    <button class="action-btn action-btn--ghost" (click)="reset()">↺ Reset Defaults</button>
+    <button class="action-btn action-btn--primary" (click)="goBack()">‹ Back to Menu</button>
+  </div>
+
+</div>
