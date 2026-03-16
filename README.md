@@ -149,9 +149,13 @@ src/app/
 
 ## 🔊 Audio
 
-All music and sound effects are generated procedurally at runtime using the **Web Audio API**. The jazz sequencer plays a 1920s-style chord progression (C7 → F7 → G7 → Am) with stride bass and chord stabs, humanized with random detuning.
+All music and sound effects are generated procedurally at runtime using the **Web Audio API**. The game includes three different 1920s-style music tracks:
 
-No audio files are bundled — the game works fully offline after the first page load.
+- **Blues** — A 12-bar blues progression in C (C7 → F7 → C7 → G7 → F7 → C7 → G7) with stride bass and chord stabs
+- **Ragtime** — Scott Joplin-inspired piano in G with staccato chords and syncopated rhythms
+- **Charleston** — Dance rhythm in F (F7 → Bb7 → F7 → C7) with signature "BOOM-chk-BOOM-BOOM" pattern
+
+All tracks feature humanized timing with random detuning and piano-style envelopes. No audio files are bundled — the game works fully offline after the first page load.
 
 ---
 
