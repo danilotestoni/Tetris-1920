@@ -6,6 +6,7 @@
 A fully-featured **1920s Art Deco Tetris** clone built with **Angular 17**, using the **Web Audio API** for procedural jazz music — no external audio files required.
 
 This is an experimental project to test **Vibe Coding** and has been developed entirely on **Claude**'s website using **Sonnet 4.5**. Not a single line of code has been typed.
+
 ---
 
 ## ✨ Features
